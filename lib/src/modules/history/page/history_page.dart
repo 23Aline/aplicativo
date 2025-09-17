@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fastlocation/src/modules/home/components/address_list_component.dart';
 import 'package:fastlocation/src/modules/history/controller/history_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -24,6 +25,12 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Histórico de Consultas'),
+        leading: IconButton(
+          icon: const FaIcon(FontAwesomeIcons.xmark), 
+          onPressed: () {
+            Navigator.of(context).pop(); 
+          },
+        ),
       ),
       body: Observer(
         builder: (_) {

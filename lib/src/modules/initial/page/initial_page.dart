@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fastlocation/src/routes/routes.dart';
+import 'package:fastlocation/src/routers/routers.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);

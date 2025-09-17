@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart'; 
 import 'package:fastlocation/src/modules/initial/page/initial_page.dart';
 import 'package:fastlocation/src/modules/home/page/home_page.dart';
 import 'package:fastlocation/src/modules/history/page/history_page.dart';
-import 'package:fastlocation/src/routes/routes.dart';
+import 'package:fastlocation/src/routers/routers.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
   runApp(const MyApp());
 }
 

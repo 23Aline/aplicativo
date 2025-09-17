@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fastlocation/src/modules/home/components/last_address_component.dart';
 import 'package:fastlocation/src/modules/home/controller/home_controller.dart';
-import 'package:fastlocation/src/routes/routes.dart';
+import 'package:fastlocation/src/routers/routers.dart'; 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,7 +38,32 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pushNamed(AppRoutes.history);
   }
 
-  void _traceRoute() {
+  void _traceRoute() async {
+    final address = _controller.lastAddress;
+    if (address == null) return;
+
+    try {
+      List<Location> locations = await locationFromAddress(
+        '${address.logradouro}, ${address.localidade}, ${address.uf}'
+      );
+      final coords = locations.first;
+
+      final availableMaps = await MapLauncher.installedMaps;
+      if (availableMaps.isNotEmpty) {
+        await availableMaps.first.showDirections(
+          destination: Coords(coords.latitude, coords.longitude),
+          destinationTitle: address.logradouro ?? 'Destino',
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum aplicativo de mapas disponível.')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao traçar rota: $e')),
+      );
+    }
   }
 
   @override
@@ -45,7 +73,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('FastLocation'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history),
+            icon: const FaIcon(FontAwesomeIcons.clock), 
             onPressed: _navigateToHistory,
           ),
         ],
@@ -60,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(
                 labelText: 'Digite o CEP',
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
+                  icon: const FaIcon(FontAwesomeIcons.xmark), 
                   onPressed: _clearSearch,
                 ),
               ),
@@ -81,20 +109,35 @@ class _HomePageState extends State<HomePage> {
               builder: (_) {
                 if (_controller.isLoading) {
                   return const Center(child: CircularProgressIndicator());
+                } else if (_controller.errorMessage != null) {
+                  return Center(
+                    child: Text(
+                      _controller.errorMessage!,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
                 } else if (_controller.lastAddress != null) {
                   return Column(
                     children: [
                       LastAddressComponent(address: _controller.lastAddress!),
                       const SizedBox(height: 16),
-                      ElevatedButton(
+                      ElevatedButton.icon(
                         onPressed: _traceRoute,
-                        child: const Text('Traçar Rota'),
+                        icon: const FaIcon(FontAwesomeIcons.route), 
+                        label: const Text('Traçar Rota'),
                       ),
                     ],
                   );
                 } else {
                   return const Center(
-                    child: Text('Nenhum endereço consultado.'),
+                    child: Text(
+                      'Nenhum endereço consultado.',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   );
                 }
               },

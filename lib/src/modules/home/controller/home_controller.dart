@@ -1,8 +1,9 @@
 import 'package:mobx/mobx.dart';
 import 'package:fastlocation/src/modules/home/model/cep_model.dart';
 import 'package:fastlocation/src/modules/home/service/cep_service.dart';
+import 'package:dio/dio.dart';
 
-part 'home_controller.g.dart'; // Lembre-se de gerar este arquivo!
+part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
@@ -26,7 +27,16 @@ abstract class _HomeControllerBase with Store {
     try {
       lastAddress = await _cepService.getAddressByCep(cep);
     } catch (e) {
-      errorMessage = e.toString();
+      if (e is DioException) {
+        errorMessage = e.message; 
+      } 
+      else if (e is Exception) {
+        final message = e.toString();
+        errorMessage = message.replaceAll(RegExp(r'^Exception:\s*'), '');
+      } 
+      else {
+        errorMessage = e.toString();
+      }
     } finally {
       isLoading = false;
     }
