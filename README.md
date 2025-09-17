@@ -1,11 +1,11 @@
-# 🚀 FastLocation
+#  FastLocation
 
 Este é o projeto do aplicativo **FastLocation**, desenvolvido em Flutter.  
 O aplicativo permite consultar endereços por **CEP** e salvar um histórico de pesquisas, além de traçar rotas para o endereço consultado.  
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 - **Flutter**: Framework de desenvolvimento de aplicativos multiplataforma.  
 - **MobX**: Gerenciamento de estado reativo.  
 - **Dio**: Cliente HTTP para comunicação com APIs externas.  
@@ -15,14 +15,14 @@ O aplicativo permite consultar endereços por **CEP** e salvar um histórico de 
 
 ---
 
-## 📋 Pré-requisitos
+##  Pré-requisitos
 - **Git** – Para clonar o repositório.
 - **Flutter** – Com o ambiente de desenvolvimento configurado.  
 - **Emulador Android ou iPhone** – Ou um dispositivo físico conectado.
 
 ---
 
-## 📥 Clonar o Repositório
+##  Clonar o Repositório
 
 Abra o terminal em seu computador e use o comando:
 
@@ -38,7 +38,7 @@ cd fastlocation
 
 ---
 
-## 📦 Instalar as Dependências
+##  Instalar as Dependências
 
 O projeto utiliza várias bibliotecas. Para instalá-las, rode:
 
@@ -48,7 +48,7 @@ flutter pub get
 
 ---
 
-## ⚡ Gerar os Arquivos MobX
+##  Gerar os Arquivos MobX
 
 O projeto usa o MobX para gerenciar o estado.  
 É necessário gerar alguns arquivos para que ele funcione corretamente:
@@ -59,7 +59,7 @@ flutter pub run build_runner build
 
 ---
 
-## ▶️ Executar o Aplicativo
+##  Executar o Aplicativo
 
 1. Inicie o emulador ou conecte seu dispositivo físico.  
    Para ver os emuladores disponíveis:
@@ -80,4 +80,4 @@ flutter emulators --launch <id_do_emulador>
 flutter run
 ```
 
-O aplicativo será compilado e instalado. 🚀
+O aplicativo será compilado e instalado. 
