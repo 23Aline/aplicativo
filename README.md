@@ -18,7 +18,7 @@ O aplicativo permite consultar endereços por **CEP** e salvar um histórico de 
 ##  Pré-requisitos
 - **Git** – Para clonar o repositório.
 - **Flutter** – Com o ambiente de desenvolvimento configurado.  
-- **Emulador Android ou iPhone** – Ou um dispositivo físico conectado.
+- **Android Studio** – Ou um dispositivo físico conectado.
 
 ---
 
@@ -33,7 +33,7 @@ git clone https://github.com/23Aline/aplicativo.git
 Em seguida:
 
 ```bash
-cd fastlocation
+cd aplicativo
 ```
 
 ---
